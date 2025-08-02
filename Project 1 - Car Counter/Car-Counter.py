@@ -39,6 +39,10 @@ while True:
     if not success:
         break
 
+
+    imgGraphics = cv2.imread("graphics.png",cv2.IMREAD_UNCHANGED)
+    img = cvzone.overlayPNG(img, imgGraphics, (0,0))
+
     results = model(imgRegion, stream=True)
 
     detections = np.empty((0,5))
@@ -93,10 +97,11 @@ while True:
 
 
 
-    cvzone.putTextRect(img, f' Count:{len(totalCount)}',(50,50))
+    # cvzone.putTextRect(img, f' Count:{len(totalCount)}',(50,50))
+    cv2.putText(img, str(len(totalCount)), (255,100), cv2.FONT_HERSHEY_PLAIN,5,(50,50,255),8)
 
     cv2.imshow("Image", img)
     cv2.imshow("ImageRegion", imgRegion)
-    if cv2.waitKey(0) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
